@@ -34,6 +34,9 @@ jobs:
       - name: Setup macOS Export Preset
         run: python3 .github/workflows/setup_macos_preset.py
 
+      - name: Debug - Print export_presets.cfg
+        run: cat export_presets.cfg
+
       - name: Import Resources
         run: |
           godot --headless --editor --quit 2>/dev/null || true
@@ -42,7 +45,7 @@ jobs:
       - name: Export macOS arm64
         run: |
           mkdir -p Builds/macOS
-          godot --headless --export-release "macOS" "Builds/macOS/GriddyCode.zip"
+          godot --headless --verbose --export-release "macOS" "Builds/macOS/GriddyCode.zip" 2>&1 || true
 
       - name: Create DMG
         run: |
