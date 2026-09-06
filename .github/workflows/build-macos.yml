@@ -80,6 +80,11 @@ jobs:
           ssh_remote_deploy/enabled=false
           EOF
 
+      - name: Import Resources
+        run: |
+          godot --headless --editor --quit 2>/dev/null || true
+          sleep 2
+
       - name: Export macOS arm64
         run: |
           mkdir -p Builds/macOS
