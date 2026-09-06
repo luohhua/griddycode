@@ -22,7 +22,7 @@ encrypt_directory=false
 [preset.2.options]
 
 export/distribution_type=1
-binary_format/architecture="arm64"
+binary_format/architecture="universal"
 custom_template/debug=""
 custom_template/release=""
 debug/export_console_wrapper=1
