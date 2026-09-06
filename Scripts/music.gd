@@ -1,6 +1,6 @@
 extends Node
 
-const ES_SOCIAL_FEEDIA___HEYSON = preload("res://Music/ES_Social Feedia - Heyson.mp3")
+var ES_SOCIAL_FEEDIA___HEYSON = null
 
 @onready var audio_stream_player: AudioStreamPlayer = $/root/Editor/AudioStreamPlayer
 @onready var timer: Timer = $/root/Editor/AudioTimer
@@ -12,18 +12,20 @@ var music_move_intensity: float = 1;
 
 var enabled: bool = false;
 
-var SONGS = [ES_SOCIAL_FEEDIA___HEYSON];
+var SONGS = []
 
 func _ready():
-	play_random_song()
-
 	audio_stream_player.finished.connect(play_random_song)
-
 	timer.timeout.connect(play_effects)
 
 func play_random_song() -> void:
 	if !enabled: return
 	timer.stop()
+
+	# Lazy load music on first play
+	if ES_SOCIAL_FEEDIA___HEYSON == null:
+		ES_SOCIAL_FEEDIA___HEYSON = load("res://Music/ES_Social Feedia - Heyson.mp3")
+		SONGS = [ES_SOCIAL_FEEDIA___HEYSON]
 
 	var song = SONGS.pick_random()
 

@@ -371,9 +371,9 @@ func setup_discord_sdk(detail: String, state: String) -> void:
 
 	DiscordSDK.refresh()
 
-# LUA
-var lua: LuaAPI = LuaAPI.new()
-var theme_lua: LuaAPI = LuaAPI.new()
+# LUA - lazy loaded to reduce startup memory
+var lua: LuaAPI = null
+var theme_lua: LuaAPI = null
 
 func str_to_clr(string: String) -> Color:
 	return Color.from_string(string, "#ff0000");
@@ -422,6 +422,8 @@ func _trim(input: String):
 
 func setup_extension(extension):
 	# FILE EXTENSIONS
+	if lua == null:
+		lua = LuaAPI.new()
 	lua.bind_libraries(["base", "table", "string"])
 
 	lua.push_variant("highlight", _lua_highlight)
@@ -440,6 +442,8 @@ func setup_extension(extension):
 	done_parsing.emit()
 
 func setup_theme(given_theme: String) -> void:
+	if theme_lua == null:
+		theme_lua = LuaAPI.new()
 	theme_lua.bind_libraries(["base", "table", "string"])
 
 	theme_lua.push_variant("disable_glow", _lua_disable_glow)
