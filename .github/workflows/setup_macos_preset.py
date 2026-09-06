@@ -34,7 +34,6 @@ application/app_category="Games"
 application/short_version="1.0"
 application/version="1.0"
 application/copyright=""
-application/copyright_localized=Dictionary()
 application/min_macos_version="10.12"
 application/export_angle=0
 display/high_res=true
