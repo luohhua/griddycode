@@ -62,10 +62,8 @@ func load_system_font(font_name: String):
 
 
 func load_system_fonts() -> Array:
-	var all_fonts = OS.get_system_fonts()
-	# Limit to first 50 fonts to reduce memory usage
-	var limited = all_fonts.slice(0, min(50, all_fonts.size()))
-	return Array(limited).map(load_system_font)
+	# Only load PingFang font on macOS
+	return [load_system_font("PingFang SC")]
 
 
 var settings: Array = [
