@@ -45,7 +45,7 @@ jobs:
       - name: Export macOS arm64
         run: |
           mkdir -p Builds/macOS
-          godot --headless --verbose --export-release "macOS" "Builds/macOS/GriddyCode.zip" 2>&1 || true
+          godot --headless --verbose --export-release "macOS" "Builds/macOS/GriddyCode.zip" 2>&1
 
       - name: Create DMG
         run: |
