@@ -39,10 +39,14 @@ const SCALE = 7.0;
 func _process(delta: float) -> void:
 	d += delta;
 
-	offset = Vector2(
-		sin(d * speed) * radius,
-		cos(d * speed) * radius
-	);
+	# Only animate offset when music is playing, otherwise Godot can skip rendering
+	if Music.enabled:
+		offset = Vector2(
+			sin(d * speed) * radius,
+			cos(d * speed) * radius
+		);
+	else:
+		offset = Vector2.ZERO;
 
 	if busy: return;
 

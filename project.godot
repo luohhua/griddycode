@@ -18,6 +18,7 @@ boot_splash/fullsize=false
 boot_splash/use_filter=false
 config/icon="res://Icons/griddycode.png"
 config/max_fps=30
+run/low_processor_mode=true
 run/low_processor_mode_sleep_usec=33333
 
 [autoload]

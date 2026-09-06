@@ -1,6 +1,6 @@
 extends Node
 
-const ES_SOCIAL_FEEDIA___HEYSON = preload("res://Music/ES_Social Feedia - Heyson.wav")
+const ES_SOCIAL_FEEDIA___HEYSON = preload("res://Music/ES_Social Feedia - Heyson.mp3")
 
 @onready var audio_stream_player: AudioStreamPlayer = $/root/Editor/AudioStreamPlayer
 @onready var timer: Timer = $/root/Editor/AudioTimer
