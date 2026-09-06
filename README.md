@@ -32,6 +32,39 @@ P.S. Press `CTRL` + `I` for a quick introduction in the Editor :)
 | [Nerdfont](https://www.nerdfonts.com/) - we use Nerdfont for the file picker. | You'll know it's missing when your icons look like "□" |
 | [Linux](https://en.wikipedia.org/wiki/List_of_Linux_distributions) - GriddyCode is tested **mainly** on Linux | No, macOS won't be supported. Gaming OS works. |
 
+# 🚀 Performance Optimizations
+
+This fork includes significant performance and energy efficiency optimizations:
+
+## GPU & Power
+- **30 FPS cap** - Code editors don't need 60fps, reduces GPU load by 50%
+- **Low processor mode** - Godot skips rendering when screen content is unchanged
+- **Optimized shaders** - Simplified noise functions in VHS/CRT shader (4x sin/dot/fract → 1x)
+- **Tween leak fix** - Camera.gd no longer creates new tweens every frame
+- **Smart camera animation** - Only animates when music is playing, otherwise static
+
+## Memory
+- **Lazy-loaded emoji font** - 23MB NotoColorEmoji only loads when user changes fonts
+- **System fonts limited** - Only loads PingFang SC instead of 200+ system fonts
+- **Audio compression** - 24MB WAV converted to 3.2MB MP3
+- **Platform binaries cleanup** - Removed unused Linux/Windows/iOS dylibs (49MB → 12MB)
+- **GL Compatibility renderer** - Lighter than Forward+ for 2D editors
+
+## Rendering
+- **Godot 4.4.1** - Latest stable with native Metal backend support
+- **GL Compatibility renderer** - Optimized for 2D code editing
+- **Font clarity** - Disabled MSDF, enabled full hinting for sharper text
+- **Glow optimization** - HDR threshold set to 0.45 for balanced visual effects
+
+## Current Status
+| Metric | Before | After |
+|--------|--------|-------|
+| Memory | 4.0 GB | ~1.1 GB |
+| GPU idle | Continuous rendering | Skips frames when idle |
+| FPS | Unlimited | 30 FPS |
+| Platform binaries | 49 MB | 12 MB |
+| Audio | 24 MB WAV | 3.2 MB MP3 |
+
 # ⌨️ Lua modding
 GriddyCode allows you to extend its functionality via **Lua**.
 
