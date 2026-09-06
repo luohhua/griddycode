@@ -128,7 +128,7 @@ func show_item(index: int) -> void:
 		add_text("󰕌")
 	elif is_dir:
 		push_color(LuaSingleton.gui.completion_selected_color)
-		add_text("")
+		add_text("")
 	else:
 		var extension = item.split(".")[-1]
 		var data = Icons.get_icon_data(extension)

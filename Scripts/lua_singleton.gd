@@ -1,6 +1,6 @@
 extends Node
 
-const NOTO_COLOR_EMOJI_REGULAR: FontFile = preload("res://Fonts/NotoColorEmoji-Regular.ttf")
+var NOTO_COLOR_EMOJI_REGULAR: FontFile = null
 
 var themes: Array = ["One Dark Pro Darker"];
 var theme: String = "One Dark Pro Darker"; # default
@@ -62,7 +62,10 @@ func load_system_font(font_name: String):
 
 
 func load_system_fonts() -> Array:
-	return Array(OS.get_system_fonts()).map(load_system_font)
+	var all_fonts = OS.get_system_fonts()
+	# Limit to first 50 fonts to reduce memory usage
+	var limited = all_fonts.slice(0, min(50, all_fonts.size()))
+	return Array(limited).map(load_system_font)
 
 
 var settings: Array = [
@@ -337,6 +340,8 @@ func handle_internal_setting_change(property: String, value: Variant) -> void:
 	if p == "minimap_width":
 		code.minimap_width = value
 	if p == "editor_font":
+		if NOTO_COLOR_EMOJI_REGULAR == null:
+			NOTO_COLOR_EMOJI_REGULAR = load("res://Fonts/NotoColorEmoji-Regular.ttf")
 		fonts[value].value.set_fallbacks([NOTO_COLOR_EMOJI_REGULAR])
 
 		editor_theme.set_font("normal_font", "RichTextLabel", fonts[value].value)

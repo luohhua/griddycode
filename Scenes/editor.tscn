@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://Scripts/hyperlink.gd" id="11_m1mse"]
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="12_x8fwh"]
 [ext_resource type="PackedScene" uid="uid://bjnhor4pywtgc" path="res://Scenes/comments.tscn" id="14_r0w3a"]
-[ext_resource type="AudioStream" uid="uid://bw4elmrq7utxl" path="res://Music/ES_Social Feedia - Heyson.wav" id="14_tdfqv"]
+[ext_resource type="AudioStream" path="res://Music/ES_Social Feedia - Heyson.mp3" id="14_tdfqv"]
 
 [sub_resource type="Environment" id="Environment_7g1iw"]
 background_mode = 3
