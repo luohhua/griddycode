@@ -19,6 +19,7 @@ var shake_strength: float = 15.0;
 var d := 0.0;
 var radius := 4.0
 var speed := 2.0
+var _tween: Tween = null
 
 func _ready() -> void:
 	limit_right = code.size.x
@@ -45,7 +46,9 @@ func _process(delta: float) -> void:
 
 	if busy: return;
 
-	var tween = create_tween();
+	if _tween and _tween.is_valid():
+		_tween.kill();
+	_tween = create_tween();
 
 	var longest_line: String = code.get_longest_line();
 	var chars: int = longest_line.length();
@@ -60,28 +63,34 @@ func _process(delta: float) -> void:
 
 	gp.x -= 2*char_size.x;
 
-	tween.parallel().tween_property(self, "zoom", final_zoom, 1.0);
-	tween.parallel().tween_property(self, "global_position", gp, 1.0);
+	_tween.parallel().tween_property(self, "zoom", final_zoom, 1.0);
+	_tween.parallel().tween_property(self, "global_position", gp, 1.0);
 
 func focus_on(pos: Vector2, _zoom: Vector2) -> void:
 	busy = true;
-	var tween = create_tween()
+	if _tween and _tween.is_valid():
+		_tween.kill();
+	_tween = create_tween()
 
-	tween.parallel().tween_property(self, "global_position", pos, transition_speed)
-	tween.parallel().tween_property(self, "zoom", _zoom, transition_speed)
+	_tween.parallel().tween_property(self, "global_position", pos, transition_speed)
+	_tween.parallel().tween_property(self, "zoom", _zoom, transition_speed)
 
 func focus_die() -> void:
 	busy = false
-	var tween = create_tween()
+	if _tween and _tween.is_valid():
+		_tween.kill();
+	_tween = create_tween()
 
-	tween.parallel().tween_property(self, "global_position", code.get_caret_draw_pos(), transition_speed)
+	_tween.parallel().tween_property(self, "global_position", code.get_caret_draw_pos(), transition_speed)
 
 func focus_temp(intensity: float) -> void:
 	if busy: return
 
-	var tween = create_tween()
+	if _tween and _tween.is_valid():
+		_tween.kill();
+	_tween = create_tween()
 
-	tween.parallel().tween_property(self, "zoom", zoom + Vector2(intensity, intensity), 0.5)
+	_tween.parallel().tween_property(self, "zoom", zoom + Vector2(intensity, intensity), 0.5)
 
 func shake_camera(_shake_strength):
 	return Vector2(randf_range(-_shake_strength, _shake_strength), randf_range(-_shake_strength, _shake_strength))

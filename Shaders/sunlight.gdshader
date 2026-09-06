@@ -16,9 +16,9 @@ uniform float falloff : hint_range(0.0, 1.0) = 0.12;
 uniform float edge_fade : hint_range(0.0, 1.0) = 0.185;
 
 uniform float speed = 1.055;
-uniform float ray1_density = 8.0;
-uniform float ray2_density = 30.0;
-uniform float ray2_intensity : hint_range(0.0, 1.0) = 0.17;
+uniform float ray1_density = 4.0;
+uniform float ray2_density = 15.0;
+uniform float ray2_intensity : hint_range(0.0, 1.0) = 0.1;
 
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 

@@ -21,7 +21,7 @@ uniform bool overlay = true;
 uniform float scanlines_opacity : hint_range(0.0, 1.0) = 0.042;
 uniform float scanlines_width : hint_range(0.0, 0.5) = 0.059;
 uniform float grille_opacity : hint_range(0.0, 1.0) = 0.086;
-uniform vec2 resolution = vec2(1280.0, 960.0); // Set the number of rows and columns the texture will be divided in. Scanlines and grille will make a square based on these values
+uniform vec2 resolution = vec2(640.0, 480.0); // Set the number of rows and columns the texture will be divided in. Scanlines and grille will make a square based on these values
 
 uniform bool pixelate = false; // Fill each square ("pixel") with a sampled color, creating a pixel look and a more accurate representation of how a CRT monitor would work.
 
@@ -31,13 +31,13 @@ uniform float roll_size : hint_range(0.0, 100.0) = 15.0;
 uniform float roll_variation : hint_range(0.1, 5.0) = 1.8; // This valie is not an exact science. You have to play around with the value to find a look you like. How this works is explained in the code below.
 uniform float distort_intensity : hint_range(0.0, 0.2) = 0.004; // The distortion created by the rolling effect.
 
-uniform float noise_opacity : hint_range(0.0, 1.0) = 0.4;
+uniform float noise_opacity : hint_range(0.0, 1.0) = 0.2;
 uniform float noise_speed = 5.0; // There is a movement in the noise pattern that can be hard to see first. This sets the speed of that movement.
 
-uniform float static_noise_intensity : hint_range(0.0, 1.0) = 0.06;
+uniform float static_noise_intensity : hint_range(0.0, 1.0) = 0.03;
 
 uniform float aberration : hint_range(-1.0, 1.0) = 0.016; // Chromatic aberration, a distortion on each color channel.
-uniform float brightness = 6; // When adding scanline gaps and grille the image can get very dark. Brightness tries to compensate for that.
+uniform float brightness = 4; // When adding scanline gaps and grille the image can get very dark. Brightness tries to compensate for that.
 uniform bool discolor = false; // Add a discolor effect simulating a VHS
 
 uniform float warp_amount :hint_range(0.0, 5.0) = 1.0; // Warp the texture edges simulating the curved glass of a CRT monitor or old TV.
