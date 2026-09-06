@@ -21,7 +21,7 @@ uniform bool overlay = true;
 uniform float scanlines_opacity : hint_range(0.0, 1.0) = 0.042;
 uniform float scanlines_width : hint_range(0.0, 0.5) = 0.059;
 uniform float grille_opacity : hint_range(0.0, 1.0) = 0.086;
-uniform vec2 resolution = vec2(640.0, 480.0); // Set the number of rows and columns the texture will be divided in. Scanlines and grille will make a square based on these values
+uniform vec2 resolution = vec2(1280.0, 960.0); // Set the number of rows and columns the texture will be divided in. Scanlines and grille will make a square based on these values
 
 uniform bool pixelate = false; // Fill each square ("pixel") with a sampled color, creating a pixel look and a more accurate representation of how a CRT monitor would work.
 
@@ -55,17 +55,9 @@ vec2 random(vec2 uv){
     return -1.0 + 2.0 * fract(sin(uv) * 43758.5453123);
 }
 
-// Generate a Perlin noise used by the distortion effects
+// Simplified noise - single hash instead of 4-corner Perlin (much cheaper)
 float noise(vec2 uv) {
-    vec2 uv_index = floor(uv);
-    vec2 uv_fract = fract(uv);
-
-    vec2 blur = smoothstep(0.0, 1.0, uv_fract);
-
-    return mix( mix( dot( random(uv_index + vec2(0.0,0.0) ), uv_fract - vec2(0.0,0.0) ),
-                     dot( random(uv_index + vec2(1.0,0.0) ), uv_fract - vec2(1.0,0.0) ), blur.x),
-                mix( dot( random(uv_index + vec2(0.0,1.0) ), uv_fract - vec2(0.0,1.0) ),
-                     dot( random(uv_index + vec2(1.0,1.0) ), uv_fract - vec2(1.0,1.0) ), blur.x), blur.y) * 0.5 + 0.5;
+    return fract(sin(dot(floor(uv), vec2(127.1, 311.7))) * 43758.5453);
 }
 
 // Takes in the UV and warps the edges, creating the spherized effect
