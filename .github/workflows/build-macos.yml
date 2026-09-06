@@ -40,15 +40,16 @@ jobs:
       - name: Enable ETC2/ASTC for arm64
         run: |
           python3 -c "
-          import re
           with open('project.godot', 'r') as f:
               content = f.read()
           if 'import_etc2_astc' not in content:
-              # Add to [rendering] section
-              content = content.replace(
-                  '[rendering]',
-                  '[rendering]\n\ntextures/vram_compression/import_etc2_astc=true'
-              )
+              if '[rendering]' in content:
+                  content = content.replace(
+                      '[rendering]',
+                      '[rendering]\n\ntextures/vram_compression/import_etc2_astc=true'
+                  )
+              else:
+                  content += '\n[rendering]\n\ntextures/vram_compression/import_etc2_astc=true\n'
               with open('project.godot', 'w') as f:
                   f.write(content)
               print('Added import_etc2_astc=true to project.godot')
