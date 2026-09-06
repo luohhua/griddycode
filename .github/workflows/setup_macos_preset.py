@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Append macOS arm64 export preset to export_presets.cfg
-Based on Godot 4.2.2 source: platform/macos/export/export_plugin.cpp"""
+Based on Godot 4.4.1 source: platform/macos/export/export_plugin.cpp"""
 
 preset = """
 [preset.2]
@@ -34,7 +34,7 @@ application/app_category="Games"
 application/short_version="1.0"
 application/version="1.0"
 application/copyright=""
-application/min_macos_version="10.12"
+application/min_macos_version="11.0"
 application/export_angle=0
 display/high_res=true
 xcode/platform_build="14C18"
