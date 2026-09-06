@@ -37,6 +37,25 @@ jobs:
       - name: Debug - Print export_presets.cfg
         run: cat export_presets.cfg
 
+      - name: Enable ETC2/ASTC for arm64
+        run: |
+          python3 -c "
+          import re
+          with open('project.godot', 'r') as f:
+              content = f.read()
+          if 'import_etc2_astc' not in content:
+              # Add to [rendering] section
+              content = content.replace(
+                  '[rendering]',
+                  '[rendering]\n\ntextures/vram_compression/import_etc2_astc=true'
+              )
+              with open('project.godot', 'w') as f:
+                  f.write(content)
+              print('Added import_etc2_astc=true to project.godot')
+          else:
+              print('import_etc2_astc already present')
+          "
+
       - name: Import Resources
         run: |
           godot --headless --editor --quit 2>/dev/null || true
