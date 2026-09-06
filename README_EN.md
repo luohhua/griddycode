@@ -8,6 +8,7 @@ https://github.com/face-hh/griddycode/assets/69168154/df93830e-6e24-472d-a854-ce
 P.S. Press `CTRL` + `I` for a quick introduction in the Editor :)
 
 # Table of Contents
+   - [🍎 macOS Support](#-macos-support)
    - [Requirements](#requirements)
    - [🚀 Performance Optimizations](#-performance-optimizations)
    - [⌨️ Lua Modding](#%EF%B8%8F-lua-modding)
@@ -19,6 +20,42 @@ P.S. Press `CTRL` + `I` for a quick introduction in the Editor :)
       - [Publishing](#publishing)
    - [Contributions](#contributions)
       - [Current bugs/needed features](#-current-bugsneeded-features)
+
+# 🍎 macOS Support
+
+This fork adds full macOS support to the original project which only supported Windows and Linux.
+
+## Download
+Go to the [Releases](https://github.com/luohhua/griddycode/releases) page to download the latest `.dmg` file. Drag it into Applications and you're good to go.
+
+## Supported Platforms
+- macOS 11.0+ (Big Sur and above)
+- Apple Silicon (M1/M2/M3/M4) native support
+- Intel Mac via Universal Binary compatibility
+
+## Technical Implementation
+- **Godot 4.4.1** — Supports native Metal backend, can switch to Metal rendering for better performance in the future
+- **GL Compatibility renderer** — Currently using OpenGL, lightweight and efficient for 2D editors
+- **CI/CD automated builds** — Pushing a `v`-prefixed tag automatically compiles macOS DMG and publishes to GitHub Releases
+- **FiraCode Nerd Font** — Built-in Nerd Font version with complete file icon support
+- **PingFang SC font** — Native Chinese font support
+
+## macOS-Specific Optimizations
+| Optimization | Description |
+|--------------|-------------|
+| Font rendering | Disabled MSDF, enabled full hinting for sharp text |
+| Memory management | Lazy-load 23MB emoji font, only load PingFang SC system font |
+| Power management | Low processor mode + 30fps cap, GPU fully rests when idle |
+| Audio | 24MB WAV compressed to 3.2MB MP3, reducing memory and disk usage |
+| Platform cleanup | Removed unused Linux/Windows/iOS dylibs for smaller install size |
+
+## Building from Source
+```bash
+# Push a tag to trigger GitHub Actions automated build
+git tag v1.x.x
+git push origin v1.x.x
+# Download DMG from GitHub Releases page after build completes
+```
 
 # Requirements
 | Requirement | Notes |

@@ -8,6 +8,7 @@ https://github.com/face-hh/griddycode/assets/69168154/df93830e-6e24-472d-a854-ce
 按 `CTRL` + `I` 在编辑器中查看快速介绍 :)
 
 # 目录
+   - [🍎 macOS 支持](#-macos-支持)
    - [环境要求](#环境要求)
    - [🚀 性能优化](#-性能优化)
    - [⌨️ Lua 扩展](#️-lua-扩展)
@@ -19,6 +20,42 @@ https://github.com/face-hh/griddycode/assets/69168154/df93830e-6e24-472d-a854-ce
       - [发布](#发布)
    - [贡献](#贡献)
       - [已知问题/待实现功能](#-已知问题待实现功能)
+
+# 🍎 macOS 支持
+
+本分支新增了完整的 macOS 支持，原项目仅支持 Windows 和 Linux。
+
+## 下载
+前往 [Releases](https://github.com/luohhua/griddycode/releases) 页面下载最新的 `.dmg` 文件，拖入 Applications 即可使用。
+
+## 支持平台
+- macOS 11.0+（Big Sur 及以上）
+- Apple Silicon（M1/M2/M3/M4）原生支持
+- Intel Mac 通过 Universal Binary 兼容
+
+## 技术实现
+- **Godot 4.4.1** — 支持原生 Metal 后端，未来可切换到 Metal 渲染获得更优性能
+- **GL Compatibility 渲染器** — 当前使用 OpenGL，针对 2D 编辑器轻量高效
+- **CI/CD 自动构建** — 推送 `v` 开头的 tag 自动编译 macOS DMG 并发布到 GitHub Releases
+- **FiraCode Nerd Font** — 内置 Nerd Font 版本，文件图标完整显示
+- **苹方 SC 字体** — 中文字体原生支持
+
+## macOS 专属优化
+| 优化项 | 说明 |
+|--------|------|
+| 字体渲染 | 关闭 MSDF，启用完整 hinting，文字锐利清晰 |
+| 内存管理 | 延迟加载 23MB 表情字体，系统字体仅加载苹方 SC |
+| 能效管理 | 低处理器模式 + 30fps 帧率限制，空闲时 GPU 完全休息 |
+| 音频 | 24MB WAV 压缩为 3.2MB MP3，减少内存和磁盘占用 |
+| 平台精简 | 删除未使用的 Linux/Windows/iOS 动态库，安装包更小 |
+
+## 从源码构建
+```bash
+# 推送 tag 触发 GitHub Actions 自动构建
+git tag v1.x.x
+git push origin v1.x.x
+# 构建完成后在 GitHub Releases 页面下载 DMG
+```
 
 # 环境要求
 | 要求 | 说明 |
