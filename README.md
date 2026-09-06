@@ -1,36 +1,29 @@
+[English](README_EN.md) | 中文
+
 # GriddyCode
 Coding has never been more lit!
 
-
 https://github.com/face-hh/griddycode/assets/69168154/df93830e-6e24-472d-a854-cea026b12890
 
-P.S. Press `CTRL` + `I` for a quick introduction in the Editor :)
+按 `CTRL` + `I` 在编辑器中查看快速介绍 :)
 
+# 目录
+   - [环境要求](#环境要求)
+   - [🚀 性能优化](#-性能优化)
+   - [⌨️ Lua 扩展](#️-lua-扩展)
+      - [路径](#路径)
+      - [使用方法](#使用方法)
+      - [文档](#文档)
+         - [语言插件](#语言插件)
+         - [主题](#主题)
+      - [发布](#发布)
+   - [贡献](#贡献)
+      - [已知问题/待实现功能](#-已知问题待实现功能)
 
-# Table of Contents
-   - [Requirements](#requirements)
-   - [Lua modding](#%EF%B8%8F-lua-modding)
-	  - [Where?](#where)
-	  - [How?](#how)
-	  - [Docs](#docs)
-		 - [Langs](#langs)
-			- [Introduction](#introduction)
-			- [Methods](#methods)
-		 - [Themes](#themes)
-			- [Introduction](#introduction-1)
-			- [Methods](#methods-1)
-	  - [Publishing](#publishing)
-   - [Contributions](#contributions)
-	  - [Current bugs/needed features](#-current-bugsneeded-features)
-	  	- [HIGH PRIORITY](#high-priority)
-		- [MEDIUM PRIORITY](#medium-priority)
-		- [LOW PRIORITY](#low-priority)
-
-# Requirements
-| Requirement | Notes |
+# 环境要求
+| 要求 | 说明 |
 | -------- | -------- |
-| [Nerdfont](https://www.nerdfonts.com/) - we use Nerdfont for the file picker. | You'll know it's missing when your icons look like "□" |
-| [Linux](https://en.wikipedia.org/wiki/List_of_Linux_distributions) - GriddyCode is tested **mainly** on Linux | No, macOS won't be supported. Gaming OS works. |
+| [Nerd Font](https://www.nerdfonts.com/) — 文件选择器使用 Nerd Font 图标 | 如果图标显示为 "□" 说明缺少该字体 |
 
 # 🚀 性能优化
 
@@ -65,81 +58,81 @@ P.S. Press `CTRL` + `I` for a quick introduction in the Editor :)
 | 平台二进制 | 49 MB | 12 MB |
 | 音频文件 | 24 MB WAV | 3.2 MB MP3 |
 
-# ⌨️ Lua modding
-GriddyCode allows you to extend its functionality via **Lua**.
+# ⌨️ Lua 扩展
+GriddyCode 支持通过 **Lua** 扩展功能。
 
-## Where?
-To open the folder with Lua scripts, go to:
+## 路径
+Lua 脚本所在目录：
 
 - Windows: `%APPDATA%\Godot\app_userdata\Bussin GriddyCode`
 - macOS: `~/Library/Application Support/Bussin GriddyCode`
 - Linux: `~/.local/share/godot/app_userdata/Bussin GriddyCode`
 
-*Note: the paths are not accurate, we recommend you manually search for GriddyCode in the AppData of your OS.*
+*注意：路径可能不完全准确，建议在系统的 AppData 中手动搜索 GriddyCode。*
 
-## How?
-You may see the folders **"langs"** and **"themes"**.
-- **"langs"** holds a bunch of `.lua` files that power GriddyCode's syntax highlighting & autocomplete.
-- **"themes"** holds a bunch of `.lua` files that change GriddyCode's appearance.
+## 使用方法
+你会看到 **"langs"** 和 **"themes"** 两个文件夹：
+- **"langs"** 存放 `.lua` 文件，用于语法高亮和自动补全
+- **"themes"** 存放 `.lua` 文件，用于改变外观主题
 
-*Note: the Lua scripts are reloaded only if you switch from a different file extension (i.e. "README.md" -> "main.ts"), or if GriddyCode is restarted.*
+*注意：Lua 脚本仅在切换不同文件扩展名时（如 "README.md" → "main.ts"）或重启 GriddyCode 后重新加载。*
 
-## Docs?
-### Langs
-#### Introduction
-To extend the functionality of GriddyCode for a specific **file extension**, create a file with its name. (i.e. `toml.lua`)
+## 文档
+### 语言插件
+#### 简介
+为特定**文件扩展名**创建同名文件即可扩展功能（如 `toml.lua`）。
 
-#### Methods
+#### 方法
 
-| Method | Example | Description | Notes |
+| 方法 | 示例 | 说明 | 备注 |
 | -------- | -------- | -------- | -------- |
-| `highlight(keyword: String, color: String)` | `highlight("const", "reserved")` | Tells GriddyCode to highlight a certain keyword with a preset of colors. | Available colors: `reserved`, `annotation`, `string`, `binary`, `symbol`, `variable`, `operator`, `comments`, `error`, `function`, `member` |
-| `highlight_region(start: String, end: String, color: String, line_only: bool = false)` | `highlight("/*", "*/", "comments", false)` | Tells GriddyCode to highlight a region with a preset of colors. | The `start` must be a symbol. Due to Godot's limited functionality, you can't use RegEx. |
-| `add_comment(comment: String)` | `add_comment("What is blud doing 🗣️🗣️🗣️")` | Adds a comment to be randomly chosen in the `CTRL` + `L` menu. | The username, profile picture, date, and likes are chosen by GriddyCode. |
-| `detect_functions(content: String, line: int, column: int) -> Array[String]` | `detect_functions("const test = 3; function main() {}; async init() => { main() }")` | Called by GriddyCode upon input. Results are showed in the autocomplete feature. | This must be provided by the Lua script. It must return an array of strings (i.e. ["main", "init"]). "line" and "column" are the position of the cursor when the autocomplete was requested. |
-| `detect_variables(content: String, line: int, column: int) -> Array[String]` | `detect_variables("const test = 3;")` | Called by GriddyCode upon input. Results are showed in the autocomplete feature. | This must be provided by the Lua script. It must return an array of strings (i.e. ["test"]). "line" and "column" are the position of the cursor when the autocomplete was requested. |
+| `highlight(keyword: String, color: String)` | `highlight("const", "reserved")` | 用预设颜色高亮关键字 | 可用颜色：`reserved`、`annotation`、`string`、`binary`、`symbol`、`variable`、`operator`、`comments`、`error`、`function`、`member` |
+| `highlight_region(start: String, end: String, color: String, line_only: bool = false)` | `highlight("/*", "*/", "comments", false)` | 高亮指定区域 | `start` 必须是符号，不支持正则 |
+| `add_comment(comment: String)` | `add_comment("今天写什么代码呢 🗣️")` | 在 `CTRL` + `L` 菜单中添加随机评论 | 用户名、头像、日期和点赞数由 GriddyCode 自动生成 |
+| `detect_functions(content: String, line: int, column: int) -> Array[String]` | `detect_functions("const test = 3; function main() {}")` | 输入时调用，结果显示在自动补全中 | 必须返回字符串数组，`line` 和 `column` 为光标位置 |
+| `detect_variables(content: String, line: int, column: int) -> Array[String]` | `detect_variables("const test = 3;")` | 输入时调用，结果显示在自动补全中 | 必须返回字符串数组，`line` 和 `column` 为光标位置 |
 
-*Note: to provide reserved variables/functions (i.e. `Math`/`parseInt()` in JS) you can have them already set up in the array you return. GriddyCode will handle the rest!*
+*注意：要提供内置变量/函数（如 JS 的 `Math`/`parseInt()`），可以直接在返回的数组中预设，GriddyCode 会自动处理。*
 
-### Themes
-#### Introduction
-To add a theme, create a file in the **"themes"** folder with any name. (i.e. "dracula.lua"). You will be able to choose it within GriddyCode.
+### 主题
+#### 简介
+在 **"themes"** 文件夹中创建任意名称的文件即可添加主题（如 "dracula.lua"），之后可在 GriddyCode 中选择。
 
-#### Methods
-| Method | Example | Description | Notes |
+#### 方法
+| 方法 | 示例 | 说明 | 备注 |
 | -------- | -------- | -------- | -------- |
-| `set_keywords(property: String, new_color: String)` | `set_keywords("reserved", "#ff00ff")` | Set the color of syntax highlighting. | The second argument must be a hex, `#` being optional. Available colors/properties listed above at `langs`. |
-| `set_gui(property: String, new_color: String)` | `set_gui("background_color", "#ff00ff")` | This method is dedicated to the overall GUI aspect of GriddyCode. | Available properties: `background_color`, `current_line_color`, `selection_color`, `font_color`, `word_highlighted_color`, `selection_background_color`. Properties except `background_color`, if not provided, will be set to a slightly modified version of `background_color`. Although possible, we don't recommend you rely on those & instead set all the values. |
-| `disable_glow()` | `disable_glow()` | Disables the "glow" setting. | This exists because Godot's *glow* seems to mess up on light colors. Not adding this on light themes may result in the entire screen going white. |
+| `set_keywords(property: String, new_color: String)` | `set_keywords("reserved", "#ff00ff")` | 设置语法高亮颜色 | 第二个参数为十六进制颜色值，`#` 可选 |
+| `set_gui(property: String, new_color: String)` | `set_gui("background_color", "#ff00ff")` | 设置 GUI 外观 | 可用属性：`background_color`、`current_line_color`、`selection_color`、`font_color`、`word_highlighted_color`、`selection_background_color` |
+| `disable_glow()` | `disable_glow()` | 禁用光效 | Godot 的光效在浅色主题上可能导致全白，浅色主题建议添加此方法 |
 
-*Note: if the HEX you input is invalid, it will default to #ff0000 (red)*
+*注意：如果输入的十六进制颜色无效，默认使用 #ff0000（红色）*
 
-## Publishing
-If you want to use a theme/plugin for **yourself**, you can put it into your [AppData](#where).
+## 发布
+如果只想**自己使用**主题/插件，放入 [AppData 路径](#路径) 即可。
 
-If you want to **submit** a theme/plugin, open a pull request adding it to `Lua/Plugins` or `Lua/Themes` respectively. If merged, it will be included in the next build.
+如果想**提交**主题/插件，请提交 Pull Request，将文件添加到 `Lua/Plugins` 或 `Lua/Themes`。合并后将包含在下一个版本中。
 
-# Contributions
-Contributions are heavily appreciated, whether it's for adding Lua plugins, themes, safely exposing more features to Lua, or adding features directly to GriddyCode!
+# 贡献
+非常欢迎贡献，无论是添加 Lua 插件、主题、安全地向 Lua 暴露更多功能，还是直接为 GriddyCode 添加功能！
 
-## Notice
-- You will need to install the [Godot Engine](https://godotengine.org/) to run your proposed change & make sure it runs flawlessly.
-- You don't have to submit executables.
-- Use the v4.2 of the engine (currently Latest)
+## 注意事项
+- 需要安装 [Godot Engine](https://godotengine.org/) 来运行和测试修改
+- 不需要提交可执行文件
+- 使用 v4.4.1 版本的引擎
 
-## 🐛 Current bugs/needed features:
-### HIGH PRIORITY
-- The `VHS & CRT` shader, on certain themes (One Dark Pro, GitHub Light, etc.), becomes completely white. Works good on GitHub Dark;
-- Light modes get affected by *glow*, while dark modes seem fine.
+## 🐛 已知问题/待实现功能：
+### 高优先级
+- `VHS & CRT` 着色器在某些主题（One Dark Pro、GitHub Light 等）下会完全变白，GitHub Dark 下正常
+- 浅色模式受光效影响，深色模式正常
 
-### MEDIUM PRIORITY
-- An option in the settings menu (`CTRL` + `,`) to change the font;
-- The current limit for lines is ~1600. If the cursor moves past that amount, the `CodeEdit` node will activate its scrolling, making the camera bug & go out of view. A limit should be implemented so that the camera won't go out of screen.
+### 中优先级
+- 在设置菜单（`CTRL` + `,`）中添加字体切换选项
+- 当前行数限制约 1600 行，超过后 `CodeEdit` 节点会触发滚动导致相机异常
 
-### LOW PRIORITY
-- Making the cat jumping video in the settings menu fade in/out along the actual menu. Currently it ignores the transition;
-- `CTRL` + `P` to open a **quick file picker**, similar to [VSCode](https://code.visualstudio.com/docs/editor/editingevolved#:~:text=Quick%20file%20navigation,-Tip%3A%20You%20can&text=VS%20Code%20provides%20two%20powerful,release%20Ctrl%20to%20open%20it.).
-- Selecting a setting with the property "shader" *should* disable previously-enabled settings with "shader".
-- The `CheckButton` node for each `setting` scene doesn't change with the theme. This affects light themes specifically.
+### 低优先级
+- 设置菜单中的猫咪跳跃视频应随菜单淡入淡出
+- `CTRL` + `P` 打开快速文件选择器（类似 VSCode）
+- 选择带 "shader" 属性的设置时应禁用之前启用的着色器设置
+- 每个设置场景的 `CheckButton` 节点不随主题变化（影响浅色主题）
 
-Please note that creating a Pull Request to fix these features does *not* guarantee its merge. Please don't open a Pull Request unless you are confident you've done a good job.
+请注意，提交 Pull Request 修复这些功能不保证会被合并。请确保代码质量后再提交。
