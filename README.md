@@ -32,38 +32,38 @@ P.S. Press `CTRL` + `I` for a quick introduction in the Editor :)
 | [Nerdfont](https://www.nerdfonts.com/) - we use Nerdfont for the file picker. | You'll know it's missing when your icons look like "□" |
 | [Linux](https://en.wikipedia.org/wiki/List_of_Linux_distributions) - GriddyCode is tested **mainly** on Linux | No, macOS won't be supported. Gaming OS works. |
 
-# 🚀 Performance Optimizations
+# 🚀 性能优化
 
-This fork includes significant performance and energy efficiency optimizations:
+本分支包含显著的性能和能效优化：
 
-## GPU & Power
-- **30 FPS cap** - Code editors don't need 60fps, reduces GPU load by 50%
-- **Low processor mode** - Godot skips rendering when screen content is unchanged
-- **Optimized shaders** - Simplified noise functions in VHS/CRT shader (4x sin/dot/fract → 1x)
-- **Tween leak fix** - Camera.gd no longer creates new tweens every frame
-- **Smart camera animation** - Only animates when music is playing, otherwise static
+## GPU 与功耗
+- **帧率限制 30fps** — 代码编辑器不需要 60fps，GPU 负载降低 50%
+- **低处理器模式** — 画面不变时 Godot 跳过渲染，GPU 完全休息
+- **着色器优化** — VHS/CRT 噪声函数简化（每像素 4 次计算 → 1 次）
+- **Tween 泄漏修复** — camera.gd 不再每帧创建新的 tween
+- **智能相机动画** — 仅在音乐播放时动画，否则静止
 
-## Memory
-- **Lazy-loaded emoji font** - 23MB NotoColorEmoji only loads when user changes fonts
-- **System fonts limited** - Only loads PingFang SC instead of 200+ system fonts
-- **Audio compression** - 24MB WAV converted to 3.2MB MP3
-- **Platform binaries cleanup** - Removed unused Linux/Windows/iOS dylibs (49MB → 12MB)
-- **GL Compatibility renderer** - Lighter than Forward+ for 2D editors
+## 内存
+- **表情符号字体延迟加载** — 23MB 的 NotoColorEmoji 仅在用户切换字体时加载
+- **系统字体精简** — 只加载苹方 SC，不再加载 200+ 个系统字体
+- **音频压缩** — 24MB WAV 转为 3.2MB MP3
+- **清理无用平台二进制** — 删除未使用的 Linux/Windows/iOS 动态库（49MB → 12MB）
+- **GL Compatibility 渲染器** — 比 Forward+ 更轻量，适合 2D 编辑器
 
-## Rendering
-- **Godot 4.4.1** - Latest stable with native Metal backend support
-- **GL Compatibility renderer** - Optimized for 2D code editing
-- **Font clarity** - Disabled MSDF, enabled full hinting for sharper text
-- **Glow optimization** - HDR threshold set to 0.45 for balanced visual effects
+## 渲染
+- **Godot 4.4.1** — 最新稳定版，支持原生 Metal 后端
+- **GL Compatibility 渲染器** — 针对 2D 代码编辑优化
+- **字体清晰度** — 关闭 MSDF，启用完整 hinting，文字更锐利
+- **光效优化** — HDR 阈值设为 0.45，平衡视觉效果与性能
 
-## Current Status
-| Metric | Before | After |
-|--------|--------|-------|
-| Memory | 4.0 GB | ~1.1 GB |
-| GPU idle | Continuous rendering | Skips frames when idle |
-| FPS | Unlimited | 30 FPS |
-| Platform binaries | 49 MB | 12 MB |
-| Audio | 24 MB WAV | 3.2 MB MP3 |
+## 优化指标
+| 指标 | 优化前 | 优化后 |
+|------|--------|--------|
+| 内存占用 | 4.0 GB | ~1.1 GB |
+| GPU 空闲状态 | 持续渲染 | 跳帧休息 |
+| 帧率 | 无限制 | 30 FPS |
+| 平台二进制 | 49 MB | 12 MB |
+| 音频文件 | 24 MB WAV | 3.2 MB MP3 |
 
 # ⌨️ Lua modding
 GriddyCode allows you to extend its functionality via **Lua**.
