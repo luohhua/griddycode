@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://bdgbhk76vmfr4"]
 
-[ext_resource type="FontFile" uid="uid://drrhlpxmc4pq4" path="res://Fonts/FiraCode-VariableFont_wght.ttf" id="1_cd7xi"]
+[ext_resource type="FontFile" path="res://Fonts/FiraCode-Regular.ttf" id="1_cd7xi"]
 [ext_resource type="Script" path="res://Scripts/file_manager.gd" id="1_x00ag"]
 [ext_resource type="Script" path="res://Scripts/settings.gd" id="2_7x3ll"]
 [ext_resource type="PackedScene" uid="uid://dk43uvvc3j228" path="res://Scenes/settings_list.tscn" id="5_6usn0"]
