@@ -14,12 +14,6 @@ var time_now = 0
 
 func _ready():
 	print(OS.get_cmdline_args())
-	if LuaSingleton.discord_sdk:
-		DiscordSDK.app_id = 1220393467738591242 # Application ID
-
-		DiscordSDK.large_image = "griddycode" # Image key from "Art Assets"
-		DiscordSDK.large_image_text = "https://github.com/face-hh/griddycode"
-		DiscordSDK.start_timestamp = int(Time.get_unix_time_from_system())
 	var running_on_gaming_os = OS.get_name() == "Windows"
 	if running_on_gaming_os:
 		current_dir = "C:/"
@@ -70,7 +64,6 @@ func _ready():
 	file_dialog.setup()
 
 	if !current_file:
-		LuaSingleton.setup_discord_sdk("Idle", "")
 		Code.toggle(%FileDialog)
 		warn("Welcome to [color=#c9daf8]Bussin[/color] [color=#85c6ff]GriddyCode[/color]! Please select a file, then press CTRL + I to get started! :D")
 
@@ -124,8 +117,6 @@ func warn(notice: String) -> void:
 	)
 
 func open_file(path: String) -> void:
-	LuaSingleton.setup_discord_sdk("Editing " + path.split("/")[-1], "In " + current_dir.split("/")[-1])
-
 	var src = Fs._load(path)
 
 	Code.text = src

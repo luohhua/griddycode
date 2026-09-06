@@ -28,7 +28,6 @@ LuaSingleton="*res://Scripts/lua_singleton.gd"
 Fs="*res://Scripts/fs.gd"
 Music="*res://Scripts/music.gd"
 CommentsData="*res://Scripts/comments_data.gd"
-DiscordSDKLoader="*res://addons/discord-sdk-gd/nodes/discord_autoload.gd"
 
 [display]
 
@@ -37,10 +36,6 @@ window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_height"
 window/vsync/vsync_mode=0
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/discord-sdk-gd/plugin.cfg")
 
 [gui]
 

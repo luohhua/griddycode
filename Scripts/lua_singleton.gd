@@ -229,13 +229,6 @@ var settings: Array = [
 		"unit": "x",
 		"min": 0, "max": 10,
 	},
-	{
-		"property": "discord_sdk",
-		"display": "Discord SDK",
-		"options": [],
-		"icon": "󰙯",
-		"value": true,
-	},
 ];
 
 var keywords: Dictionary = {
@@ -255,8 +248,6 @@ var keywords: Dictionary = {
 var keywords_to_highlight: Dictionary = {}
 var color_regions_to_highlight: Array = []
 var comments: Array = []
-
-var discord_sdk: bool = true;
 
 const SUNLIGHT = preload("res://Shaders/sunlight.gdshader")
 const VHS_AND_CRT = preload("res://Shaders/vhs_and_crt.gdshader")
@@ -361,16 +352,6 @@ func handle_internal_setting_change(property: String, value: Variant) -> void:
 		Music.set_volume(value)
 	if p == "music_move_intensity":
 		Music.music_move_intensity = value
-	if p == "discord_sdk":
-		discord_sdk = value;
-
-func setup_discord_sdk(detail: String, state: String) -> void:
-	if !discord_sdk: return
-	DiscordSDK.details = detail
-	DiscordSDK.state = state
-
-	DiscordSDK.refresh()
-
 # LUA - lazy loaded to reduce startup memory
 var lua: LuaAPI = null
 var theme_lua: LuaAPI = null
