@@ -93,6 +93,58 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate Changelog
+        id: changelog
+        run: |
+          TAG="${GITHUB_REF#refs/tags/}"
+          PREV_TAG=$(git tag --sort=-creatordate | grep -A1 "^${TAG}$" | tail -1)
+
+          if [ "$PREV_TAG" = "$TAG" ] || [ -z "$PREV_TAG" ]; then
+            # First tag, show all commits
+            CHANGELOG=$(git log --pretty=format:"- %s (%h)" --no-merges)
+          else
+            # Show commits between tags
+            CHANGELOG=$(git log --pretty=format:"- %s (%h)" --no-merges "${PREV_TAG}..${TAG}")
+          fi
+
+          # Categorize commits
+          FEATURES=$(echo "$CHANGELOG" | grep -i "^- feat" || true)
+          FIXES=$(echo "$CHANGELOG" | grep -i "^- fix" || true)
+          PERF=$(echo "$CHANGELOG" | grep -i "^- perf" || true)
+          DOCS=$(echo "$CHANGELOG" | grep -i "^- docs" || true)
+          OTHER=$(echo "$CHANGELOG" | grep -ivE "^- (feat|fix|perf|docs)" || true)
+
+          # Build release body
+          BODY="## 🚀 GriddyCode ${TAG}\n\n"
+          BODY+="### 🍎 macOS 支持\n"
+          BODY+="本版本新增完整的 macOS 支持，下载下方 .dmg 文件拖入 Applications 即可使用。\n\n"
+          BODY+="**系统要求：** macOS 11.0+ (Big Sur 及以上) | Apple Silicon (M1/M2/M3/M4) 原生支持\n\n"
+
+          if [ -n "$FEATURES" ]; then
+            BODY+="### ✨ 新功能\n${FEATURES}\n\n"
+          fi
+          if [ -n "$FIXES" ]; then
+            BODY+="### 🐛 修复\n${FIXES}\n\n"
+          fi
+          if [ -n "$PERF" ]; then
+            BODY+="### ⚡ 性能优化\n${PERF}\n\n"
+          fi
+          if [ -n "$DOCS" ]; then
+            BODY+="### 📝 文档\n${DOCS}\n\n"
+          fi
+          if [ -n "$OTHER" ]; then
+            BODY+="### 📦 其他\n${OTHER}\n\n"
+          fi
+
+          # Write to file (handle multiline)
+          echo -e "$BODY" > /tmp/changelog.md
+          echo "Generated changelog for ${TAG}"
+
       - name: Download Artifact
         uses: actions/download-artifact@v4
         with:
@@ -103,6 +155,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: ./release/GriddyCode-macOS-arm64.dmg
-          generate_release_notes: true
+          body_path: /tmp/changelog.md
           draft: false
           prerelease: false
